@@ -1,7 +1,7 @@
 ﻿https://www.youtube.com/watch?v=b0qwJeY6NLE
 -> confiiguerer .env base de donnée
 ->php bin/console doctrine:database:create
-->composer require symfony/webpack-encore-bundle
 
-https://gmanier.com/memo/3/le-crud-sous-symfony-4
+
+
 version php 7.2.28
