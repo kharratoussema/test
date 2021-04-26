@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Pointeuse{% endblock %}
+
+{% block body %}
+    <h1>Edit Pointeuse</h1>
+
+    {{ include('pointeuse/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('pointeuse_index') }}">back to list</a>
+
+    {{ include('pointeuse/_delete_form.html.twig') }}
+{% endblock %}

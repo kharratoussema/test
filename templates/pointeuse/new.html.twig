@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Pointeuse{% endblock %}
+
+{% block body %}
+    <h1>Ajouter  Pointeuse</h1>
+
+    {{ include('pointeuse/_form.html.twig') }}
+
+    <a href="{{ path('pointeuse_index') }}">back to list</a>
+{% endblock %}

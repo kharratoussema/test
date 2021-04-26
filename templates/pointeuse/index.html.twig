@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Pointeuse{% endblock %}
+
+{% block body %}
+    <h1>Liste Pointeuse</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Utilisateur</th>
+                <th>Chantier</th>
+                <th>Date</th>
+                <th>Duree</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pointeuse in pointeuses %}
+            <tr>
+                <td>{{ pointeuse.id }}</td>
+                <td>{{ pointeuse.user.name }}</td>
+                <td>{{ pointeuse.chantiers.name }}</td>
+                <td>{{ pointeuse.date ? pointeuse.date|date('Y-m-d') : '' }}</td>
+                <td>{{ pointeuse.duree }}</td>
+                <td>
+                    <a href="{{ path('pointeuse_show', {'id': pointeuse.id}) }}">show</a>
+                    <a href="{{ path('pointeuse_edit', {'id': pointeuse.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pointeuse_new') }}">Enregistrer new</a>
+{% endblock %}

@@ -12,8 +12,16 @@
                 <td>{{ chantier.id }}</td>
             </tr>
             <tr>
+                <th>Name</th>
+                <td>{{ chantier.name }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ chantier.adress }}</td>
+            </tr>
+            <tr>
                 <th>Date</th>
-                <td>{{ chantier.date ? chantier.date|date('Y-m-d') : '' }}</td>
+                <td>{{ chantier.date ? chantier.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

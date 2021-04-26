@@ -1,23 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chantier index{% endblock %}
+{% block title %}Liste Chantier{% endblock %}
 
 {% block body %}
-    <h1>Chantier index</h1>
+    <h1>Liste Chantier</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Date</th>
+                
+                <th>Name</th>
+                <th>Adress</th>
+                <th>Nombre de pointeuse</th>
+                <th>Nombre d'heure cumulé</th>
+                <th>Date</th>            
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+       
         {% for chantier in chantiers %}
+            {% set tabArray = [] %} 
+            {% set total = 0 %}            
+            {% for i in chantier.pointeuses %} 
+                    {% set total = total+i.duree %}                 
+                    {% if i.user.id not in tabArray %}                   
+                            {% set tabArray= tabArray|merge([i.user.id]) %}
+                    {% endif %}
+            {% endfor %}
             <tr>
                 <td>{{ chantier.id }}</td>
-                <td>{{ chantier.date ? chantier.date|date('Y-m-d') : '' }}</td>
+                <td>{{ chantier.name }}</td>
+                <td>{{ chantier.adress }}</td>
+                <td>{{ tabArray|length}}</td>
+                <td>{{ total }}</td>
+                <td>{{ chantier.date ? chantier.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('chantier_show', {'id': chantier.id}) }}">show</a>
                     <a href="{{ path('chantier_edit', {'id': chantier.id}) }}">edit</a>
@@ -25,11 +42,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('chantier_new') }}">Create new</a>
+    <a href="{{ path('chantier_new') }}">Enregistrer</a>
 {% endblock %}
