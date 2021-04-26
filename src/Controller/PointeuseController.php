@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * @Route("/pointeuse")
  */
@@ -53,7 +53,7 @@ class PointeuseController extends AbstractController
      * @Route("/{id}", name="pointeuse_show", methods={"GET"})
      */
     public function show(Pointeuse $pointeuse): Response
-    {
+    {      
         return $this->render('pointeuse/show.html.twig', [
             'pointeuse' => $pointeuse,
         ]);
@@ -92,4 +92,6 @@ class PointeuseController extends AbstractController
 
         return $this->redirectToRoute('pointeuse_index');
     }
+
+   
 }
