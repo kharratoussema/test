@@ -10,9 +10,9 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
 use App\Entity\User;
 use App\Entity\Chantier;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class PointeuseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -35,10 +35,13 @@ class PointeuseType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('date',DateType::class, [
-                'required' => true,               
+                'required' => true,  
             ])
             ->add('duree',TextType::class, [
                 'required' => true,               
+            ])
+            ->add('week',HiddenType::class, [
+                'required' => false,                        
             ])       
         ;
     }

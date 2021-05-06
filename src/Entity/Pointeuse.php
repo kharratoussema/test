@@ -34,9 +34,15 @@ class Pointeuse
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @Assert\Expression("this.getDuree() <= 36",message="Il ne faut pas dépasser 35 heure ")
+    */
     private $duree;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $week;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pointeuses")
@@ -99,6 +105,18 @@ class Pointeuse
     public function setChantiers(?Chantier $chantiers): self
     {
         $this->chantiers = $chantiers;
+
+        return $this;
+    }
+
+    public function getWeek(): ?int
+    {
+        return $this->week;
+    }
+
+    public function setWeek(int $week): self
+    {
+        $this->week = $week;
 
         return $this;
     }

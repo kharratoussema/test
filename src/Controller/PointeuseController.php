@@ -79,6 +79,26 @@ class PointeuseController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/calcul", name="calcul_week")
+     */
+    public function calcul(Request $request,PointeuseRepository $pointeuseRepository):Response
+    {  
+        $week = $request->request->get('week');
+        $duree = $request->request->get('duree')?$request->request->get('duree'):0;	
+        $id= $request->request->get('id');
+        $year= $request->request->get('year');	
+        $result= $pointeuseRepository->findByweek($week,$id,$year);            
+        if($result['sumduree']){
+            if(($result['sumduree']+$duree)<36){
+                return new Response('true');
+            }else{
+                return new Response('false');
+            }
+        }
+        return new Response('true');
+    }
+
     /**
      * @Route("/{id}", name="pointeuse_delete", methods={"POST"})
      */

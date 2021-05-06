@@ -19,32 +19,21 @@ class PointeuseRepository extends ServiceEntityRepository
         parent::__construct($registry, Pointeuse::class);
     }
 
-    // /**
-    //  * @return Pointeuse[] Returns an array of Pointeuse objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    /**
+    * @return Pointeuse[] Returns an array of Pointeuse objects
     */
-
-    /*
-    public function findOneBySomeField($value): ?Pointeuse
+    
+    public function findByweek($value,$id,$year)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.week = :val')
+            ->setParameter('val', $value)  
+            ->andWhere('p.id <>' . $id )
+            ->andwhere('YEAR(p.date) = :year')
+            ->setParameter('year', $year)
+            ->select('SUM(p.duree) as sumduree')
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

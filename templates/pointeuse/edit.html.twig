@@ -11,3 +11,42 @@
 
     {{ include('pointeuse/_delete_form.html.twig') }}
 {% endblock %}
+
+
+ {% block javascripts %}
+
+ <script>
+ 	$("select#pointeuse_date_month,#pointeuse_date_day,#pointeuse_date_year").change(function(){
+		calcul_week();			  
+	}); 
+	$( "#pointeuse_duree" ).keyup(function() {
+	  calcul_week();
+	});
+	function calcul_week(){
+		var date_pointeuse= $('#pointeuse_date_year').val()+'-'+$('#pointeuse_date_month').val()+'-'+$('#pointeuse_date_day').val();
+		let now = new Date(date_pointeuse);
+		let onejan = new Date(now.getFullYear(), 0, 1);
+		let week = Math.ceil( (((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7 );
+		$('#pointeuse_week').val(week);
+		if( $('#pointeuse_duree').val()<36){
+			$.ajax({
+				   method: "POST",
+				   url: "{{ path('calcul_week') }}",
+				   data: {week: $('#pointeuse_week').val(),duree:$('#pointeuse_duree').val(),id:{{pointeuse.id}},year:$('#pointeuse_date_year').val()},
+				   success: function(reponse){				  
+					   if(reponse=='false'){
+						   $(".btn").attr("disabled", true);
+						   alert('vous pouvez pas dépasser cette durée cette semaine');
+						}else{
+							$(".btn").attr("disabled", false);
+						} 				   
+				   }
+			});
+		}else{
+			$(".btn").attr("disabled", true);
+			alert('vous pouvez pas dépasser 35 heure');
+		}
+	}
+ </script>
+ 
+{% endblock %}
